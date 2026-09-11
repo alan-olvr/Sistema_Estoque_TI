@@ -17,26 +17,25 @@ public class ConsultarEstoque extends JPanel {
 
     private void inicializar() {
     	setLayout(new BorderLayout(10, 10));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Título
         JLabel titulo = new JLabel("Consultar Produto no Estoque", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        titulo.putClientProperty("FlatLaf.style", "font: bold +9");
         add(titulo, BorderLayout.NORTH);
 
-        // Painel de busca
-        JPanel busca = new JPanel();
+        JPanel busca = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         busca.add(new JLabel("Código do produto:"));
 
         tfCodigo = new JTextField(15);
         busca.add(tfCodigo);
 
         JButton btnBuscar = new JButton("Consultar");
+        btnBuscar.putClientProperty("JButton.buttonType", "roundRect");
         btnBuscar.addActionListener(e -> consultarProduto());
         busca.add(btnBuscar);
 
         add(busca, BorderLayout.CENTER);
 
-        // Área de resultado
         taResultado = new JTextArea(8, 40);
         taResultado.setEditable(false);
         taResultado.setFont(new Font("Monospaced", Font.PLAIN, 13));

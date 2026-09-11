@@ -19,13 +19,14 @@ public class CadastroProdutos extends JPanel {
 	}
 	
 	private void inicializar() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(0, 15));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel titulo = new JLabel("Cadastro de Produtos", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        titulo.putClientProperty("FlatLaf.style", "font: bold +9");
         add(titulo, BorderLayout.NORTH);
 
-        JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
+        JPanel form = new JPanel(new GridLayout(0, 2, 10, 10));
 
         tfCodigo = new JTextField();
         tfNome = new JTextField();
@@ -51,8 +52,12 @@ public class CadastroProdutos extends JPanel {
         add(form, BorderLayout.CENTER);
 
         JButton btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.putClientProperty("JButton.buttonType", "roundRect");
         btnCadastrar.addActionListener(e -> cadastrarProduto());
-        add(btnCadastrar, BorderLayout.SOUTH);
+        
+        JPanel painelBotao = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        painelBotao.add(btnCadastrar);
+        add(painelBotao, BorderLayout.SOUTH);
         
         cbTipo.addActionListener(e -> atualizarRotulos(cbTipo.getSelectedItem().toString()));
         

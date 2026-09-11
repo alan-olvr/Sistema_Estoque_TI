@@ -21,46 +21,46 @@ public class ExibirEstoque extends JPanel {
 	
 	private void inicializar() {
 		setLayout(new BorderLayout(10, 10));
-		
-		JPanel norte = new JPanel(new BorderLayout(5, 5));
-		
-		JLabel title = new JLabel("Estoque de Produtos", JLabel.CENTER);
-		title.setFont(new Font("Arial", Font.BOLD, 20));
-		
-		//painel superior
-		JPanel topo = new JPanel();
-		cbTipo = new JComboBox<>(new String[] {
-				"Hardware", "Perifericos", "Software", "Dispositivo"
-		});
-		
-		JButton btnAtualizar = new JButton("Exibir");
-		btnAtualizar.addActionListener(e -> atualizarTabela());
-		
-		topo.add(new JLabel("Tipo:"));
-		topo.add(cbTipo);
-		topo.add(btnAtualizar);
-		
-		norte.add(title, BorderLayout.NORTH);
-		norte.add(topo, BorderLayout.SOUTH);
-		
-		add(norte, BorderLayout.NORTH);
-		//tabela
-		model = new DefaultTableModel(
-				new Object[] {"Código", "Nome", "Quantidade", "Preço", "Valor em estoque"},0
-		);
-		
-		tabela = new JTable(model);
-		add(new JScrollPane(tabela), BorderLayout.CENTER);
-		
-		//rodapé
-		JPanel rodape = new JPanel(new GridLayout(1, 2));
-		lbTotalQtd = new JLabel("Quantidade Total: 0");
-		lbTotalValor = new JLabel("Valor total: R$ 0,00");
-		
-		rodape.add(lbTotalQtd);
-		rodape.add(lbTotalValor);
-		
-		add(rodape, BorderLayout.SOUTH);
+	    setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+	    JPanel norte = new JPanel(new BorderLayout(5, 10));
+
+	    JLabel title = new JLabel("Estoque de Produtos", JLabel.CENTER);
+	    title.putClientProperty("FlatLaf.style", "font: bold +9");
+
+	    JPanel topo = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+	    cbTipo = new JComboBox<>(new String[] {
+	            "Hardware", "Perifericos", "Software", "Dispositivo"
+	    });
+
+	    JButton btnAtualizar = new JButton("Exibir");
+	    btnAtualizar.putClientProperty("JButton.buttonType", "roundRect");
+	    btnAtualizar.addActionListener(e -> atualizarTabela());
+
+	    topo.add(new JLabel("Tipo:"));
+	    topo.add(cbTipo);
+	    topo.add(btnAtualizar);
+
+	    norte.add(title, BorderLayout.NORTH);
+	    norte.add(topo, BorderLayout.SOUTH);
+	    add(norte, BorderLayout.NORTH);
+
+	    model = new DefaultTableModel(
+	            new Object[] {"Código", "Nome", "Quantidade", "Preço", "Valor em estoque"}, 0
+	    );
+
+	    tabela = new JTable(model);
+	    tabela.setRowHeight(24);
+	    add(new JScrollPane(tabela), BorderLayout.CENTER);
+
+	    JPanel rodape = new JPanel(new GridLayout(1, 2, 10, 0));
+	    rodape.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+	    lbTotalQtd = new JLabel("Quantidade Total: 0");
+	    lbTotalValor = new JLabel("Valor total: R$ 0,00");
+
+	    rodape.add(lbTotalQtd);
+	    rodape.add(lbTotalValor);
+	    add(rodape, BorderLayout.SOUTH);
 	}
 	
 	private void atualizarTabela() {

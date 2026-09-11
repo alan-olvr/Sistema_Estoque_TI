@@ -1,5 +1,8 @@
 package Visual;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.util.Collections;
 import javax.swing.*;
 import java.awt.*;
 import ClassesBase.*;
@@ -17,6 +20,8 @@ public class TelaPrincipal extends JFrame{
 		estoque = new Estoque();
 		setTitle("AKA System");
 		setSize(900, 550);
+		ImageIcon icon = new ImageIcon(getClass().getResource("/icon.png"));
+		setIconImage(icon.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
@@ -29,44 +34,44 @@ public class TelaPrincipal extends JFrame{
 	}
 	
 	private void criarMenu() {
-		JMenuBar menuBar = new JMenuBar();
+		JPanel menuBar = new JPanel();
 		
-		JMenu menu = new JMenu("Menu");
+		menuBar.setLayout(new BoxLayout(menuBar, BoxLayout.Y_AXIS));
+		menuBar.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+		menuBar.setPreferredSize(new Dimension(180, getHeight()));
 		
-		JMenuItem itemCadastro = new JMenuItem("Cadastro de Produtos");
-		JMenuItem itemEstoque = new JMenuItem("Exibir Estoque");
-		JMenuItem itemConsulta = new JMenuItem("Consultar Estoque");
-		JMenuItem itemVenda = new JMenuItem("Registrar Venda");
-		JMenuItem itemOS = new JMenuItem("Ordem de Serviço");
-		JMenuItem itemHV = new JMenuItem("Histórico de vendas");
+		JButton btnCadastro = new JButton("Cadastro de Produtos");
+		JButton btnEstoque = new JButton("Exibir Estoque");
+		JButton btnConsulta = new JButton("Consultar Estoque");
+		JButton btnVenda = new JButton("Registrar Venda");
+		JButton btnOS = new JButton("Ordem de Serviço");
+		JButton btnHV = new JButton("Histórico de vendas");
 		
 		
-		itemCadastro.addActionListener(e -> cardLayout.show(painelCentral, "CADASTRO"));
+		btnCadastro.addActionListener(e -> cardLayout.show(painelCentral, "CADASTRO"));
 		
-		itemEstoque.addActionListener(e -> cardLayout.show(painelCentral, "ESTOQUE"));
+		btnEstoque.addActionListener(e -> cardLayout.show(painelCentral, "ESTOQUE"));
 		
-		itemConsulta.addActionListener(e -> cardLayout.show(painelCentral, "CONSULTA"));
+		btnConsulta.addActionListener(e -> cardLayout.show(painelCentral, "CONSULTA"));
 		
-		itemVenda.addActionListener(e -> cardLayout.show(painelCentral, "REGISTRAR VENDA"));
+		btnVenda.addActionListener(e -> cardLayout.show(painelCentral, "REGISTRAR VENDA"));
 		
-		itemOS.addActionListener(e -> cardLayout.show(painelCentral, "OS"));
+		btnOS.addActionListener(e -> cardLayout.show(painelCentral, "OS"));
 		
-		itemHV.addActionListener(e -> {
+		btnHV.addActionListener(e -> {
 			telaHistorico.atualizarTabela(); 
 			cardLayout.show(painelCentral, "HV");
 		});
 		
 		
-		menu.add(itemCadastro);
-		menu.add(itemEstoque);
-		menu.add(itemConsulta);
-		menu.add(itemVenda);
-		menu.add(itemOS);
-		menu.add(itemHV);
+		for (JButton botao: new JButton[]{btnCadastro, btnEstoque, btnConsulta, btnVenda, btnOS, btnHV}) {
+		    botao.setAlignmentX(Component.CENTER_ALIGNMENT);
+	        botao.setMaximumSize(new Dimension(160, 40));
+	        menuBar.add(botao);
+	        menuBar.add(Box.createRigidArea(new Dimension(0, 10)));
+		}
 		
-		menuBar.add(menu);
-		setJMenuBar(menuBar);
-		
+		add(menuBar, BorderLayout.WEST);
 	}
 	
 	private void criarPainelCentral() {
@@ -91,8 +96,15 @@ public class TelaPrincipal extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		
-		SwingUtilities.invokeLater(TelaPrincipal::new);
+	    FlatLaf.setGlobalExtraDefaults(Collections.singletonMap("@accentColor", "#2F6FED"));
+
+	    try {
+	        UIManager.setLookAndFeel(new FlatLightLaf());
+	    } catch (Exception ex) {
+	        System.err.println("Falha ao inicializar o FlatLaf");
+	    }
+
+	    SwingUtilities.invokeLater(TelaPrincipal::new);
 	}
 }
 

@@ -15,14 +15,14 @@ public class RegistrarVenda extends JPanel {
     }
 
     private void inicializar() {
-
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(10, 15));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel titulo = new JLabel("Registrar Venda", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        titulo.putClientProperty("FlatLaf.style", "font: bold +9");
         add(titulo, BorderLayout.NORTH);
 
-        JPanel form = new JPanel(new GridLayout(3, 2, 5, 5));
+        JPanel form = new JPanel(new GridLayout(0, 2, 10, 10));
 
         tfCodigo = new JTextField();
         tfQuantidade = new JTextField();
@@ -33,10 +33,14 @@ public class RegistrarVenda extends JPanel {
         form.add(tfQuantidade);
 
         JButton btnVender = new JButton("Registrar Venda");
+        btnVender.putClientProperty("JButton.buttonType", "roundRect");
         btnVender.addActionListener(e -> registrarVenda());
 
+        JPanel painelBotao = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        painelBotao.add(btnVender);
+
         add(form, BorderLayout.CENTER);
-        add(btnVender, BorderLayout.SOUTH);
+        add(painelBotao, BorderLayout.SOUTH);
     }
 
     private void registrarVenda() {

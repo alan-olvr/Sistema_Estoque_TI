@@ -20,14 +20,14 @@ public class GerenciarOrdemServico extends JPanel {
 	    }
 
 	    private void inicializar() {
-
 	        setLayout(new BorderLayout(10, 10));
+	        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 	        JLabel titulo = new JLabel("Gerenciar Ordem de Serviço", JLabel.CENTER);
-	        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+	        titulo.putClientProperty("FlatLaf.style", "font: bold +9");
 	        add(titulo, BorderLayout.NORTH);
 
-	        JPanel cadastro = new JPanel(new GridLayout(4, 2, 5, 5));
+	        JPanel cadastro = new JPanel(new GridLayout(0, 2, 10, 10));
 
 	        tfCliente = new JTextField();
 	        taProblema = new JTextArea(3, 20);
@@ -39,26 +39,33 @@ public class GerenciarOrdemServico extends JPanel {
 	        cadastro.add(new JScrollPane(taProblema));
 
 	        JButton btnCriar = new JButton("Criar OS");
+	        btnCriar.putClientProperty("JButton.buttonType", "roundRect");
 	        btnCriar.addActionListener(e -> criarOS());
 
-	        JPanel painelCadastro = new JPanel(new BorderLayout());
+	        JPanel painelCadastro = new JPanel(new BorderLayout(0, 10));
+	        painelCadastro.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
 	        painelCadastro.add(cadastro, BorderLayout.CENTER);
 	        painelCadastro.add(btnCriar, BorderLayout.SOUTH);
 
 	        add(painelCadastro, BorderLayout.WEST);
-	        
+
 	        model = new DefaultTableModel(
 	                new Object[]{"ID", "Cliente", "Status", "Valor"}, 0
 	        );
 
 	        tabela = new JTable(model);
+	        tabela.setRowHeight(24);
 	        add(new JScrollPane(tabela), BorderLayout.CENTER);
 
-	        JPanel acoes = new JPanel();
+	        JPanel acoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
 	        JButton btnAvancar = new JButton("Avançar Status");
 	        JButton btnCancelar = new JButton("Cancelar OS");
 	        JButton btnValor = new JButton("Definir Valor");
+
+	        for (JButton b : new JButton[]{btnAvancar, btnCancelar, btnValor}) {
+	            b.putClientProperty("JButton.buttonType", "roundRect");
+	        }
 
 	        btnAvancar.addActionListener(e -> avancarStatus());
 	        btnCancelar.addActionListener(e -> cancelarOS());

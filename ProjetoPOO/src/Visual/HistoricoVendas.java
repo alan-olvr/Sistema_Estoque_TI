@@ -18,11 +18,11 @@ public class HistoricoVendas extends JPanel {
     }
 
     private void inicializar() {
-
         setLayout(new BorderLayout(10, 10));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel titulo = new JLabel("Histórico de Vendas", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        titulo.putClientProperty("FlatLaf.style", "font: bold +9");
         add(titulo, BorderLayout.NORTH);
 
         model = new DefaultTableModel(
@@ -30,9 +30,11 @@ public class HistoricoVendas extends JPanel {
         );
 
         tabela = new JTable(model);
+        tabela.setRowHeight(24);
         add(new JScrollPane(tabela), BorderLayout.CENTER);
 
-        JPanel rodape = new JPanel(new GridLayout(1, 2));
+        JPanel rodape = new JPanel(new GridLayout(1, 2, 10, 0));
+        rodape.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         lbTotalVendas = new JLabel("Total de vendas: 0");
         lbValorTotal = new JLabel("Valor total vendido: R$ 0,00");
 
